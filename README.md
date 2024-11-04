@@ -2,17 +2,23 @@
 --- 
 
 ## Table Of Contents
- * Introduction
+ * [Introduction](#Introduction)
+ * File utilized
  * Guide Questions
  * Results / Answers
  * References 
 
+### Introduction
+* In this repository, we will be utilizing the Spotify-2023 data file to further deepen the understanding and enhance the programmer's skills on their python coding whilst utilizing various libraries. These libraries include Pandas and Matplotlib to provide the readers with visuals and provide an easier-to-read data. 
 
-
+### File Utilized
+* The file utilized in this repository is the
+[spotify-2023.csv](https://github.com/user-attachments/files/17621217/spotify-2023.csv)
 
 
 ### Guide Questions
 In this repository, we will be answering the following questions : 
+
 #### Overview of Dataset
 * How many rows and columns does the dataset contain?
 * What are the data types of each column? Are there any missing values?
@@ -41,8 +47,18 @@ In this repository, we will be answering the following questions :
 ### Results / Answers
 In this section, it will provide answers with in-depth explanations for our guide questions to further explain the observations in the problems. 
 
+#### Accessing the Data
 
+Before we start with answering our data, we must first access our files.
 
+```python
+df = pd.read_csv("spotify-2023.csv",encoding = 'latin-1')
+
+```
+![image](https://github.com/user-attachments/assets/d33b8cf4-cb6b-45d2-884b-2203b7735443)
+ 
+You will encounter an error upon first loading the data, in my case it was :
+**'utf-8' codec can't decode bytes in position 7250-7251: invalid continuation byte'** . [It is a common error that occurs when trying to read a file with Pandas that cntains non-UTF-8 characters](https://saturncloud.io/blog/how-to-fix-the-pandas-unicodedecodeerror-utf8-codec-cant-decode-bytes-in-position-01-invalid-continuation-byte-error/#:~:text=continuation%20byte%20error%3F-,The%20UnicodeDecodeError%3A%20'utf%2D8'%20codec%20can't,%2DUTF%2D8%20encoded%20characters.). To counter eliminate the problem, we specify an encoding format, in which case I used Latin-1. Now the table can be seen without problem. 
 
 ## Update Log
 In this section, the coder provided updates about certain observations or changes during his process in cleaning and coding the dataframe. 
@@ -66,8 +82,9 @@ In this section, the coder provided updates about certain observations or change
 
 
 ## References
-1. https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
-2. https://www.geeksforgeeks.org/convert-a-dataframe-column-to-integer-in-pandas/
-3. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
+1. https://saturncloud.io/blog/how-to-fix-the-pandas-unicodedecodeerror-utf8-codec-cant-decode-bytes-in-position-01-invalid-continuation-byte-error/#:~:text=continuation%20byte%20error%3F-,The%20UnicodeDecodeError%3A%20'utf%2D8'%20codec%20can't,%2DUTF%2D8%20encoded%20characters.
+2. https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
+3. https://www.geeksforgeeks.org/convert-a-dataframe-column-to-integer-in-pandas/
+4. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
 
 
