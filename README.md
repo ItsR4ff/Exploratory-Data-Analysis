@@ -42,6 +42,8 @@ In this repository, we will be answering the following questions :
 In this section, it will provide answers with in-depth explanations for our guide questions to further explain the observations in the problems. 
 
 
+
+
 ## Update Log
 In this section, the coder provided updates about certain observations or changes during his process in cleaning and coding the dataframe. 
 
@@ -54,8 +56,13 @@ In this section, the coder provided updates about certain observations or change
  * Cleaning of the dataframe in Jupyter, removing duplicates and null values.
 
 #### Version 1.1 (11/1/2024)
-* Further adjustments and addition in the dataset file
+* Further adjustments and addition in the Jupyter Notebook Codes 
 * Minor Adjustments and additions in ReadMe file
+
+#### Update 1.0 (11/2/2024)
+* Further additions and adjustments to the Jupyter Notebook Codes
+
+####  Version 1.2 (11/2/2024)
 
 
 ## References
