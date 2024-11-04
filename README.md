@@ -3,9 +3,9 @@
 
 ## Table Of Contents
  ### ●  [Introduction](#Introduction)
- ### ●  [File utilized](#File )
- ### ●  [Guide Questions](# Guide Questions)
- ### ●  [Results / Answers](#Results / Answers)
+ ### ●  [File Utilized](#File-Utilized)
+ ### ●  [Guide Questions](#Guide-Questions)
+ ### ●  [Results / Answers](#Results-/-Answers)
  ### ●  [References](#References)
 
 ### Introduction
