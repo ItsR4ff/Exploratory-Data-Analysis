@@ -2,11 +2,11 @@
 --- 
 
 ## Table Of Contents
- * [Introduction](#Introduction)
- * File utilized
- * Guide Questions
- * Results / Answers
- * References 
+ ### ●  [Introduction](#Introduction)
+ ### ●  [File utilized](#File )
+ ### ●  [Guide Questions](# Guide Questions)
+ ### ●  [Results / Answers](#Results / Answers)
+ ### ●  [References](#References)
 
 ### Introduction
 * In this repository, we will be utilizing the Spotify-2023 data file to further deepen the understanding and enhance the programmer's skills on their python coding whilst utilizing various libraries. These libraries include Pandas and Matplotlib to provide the readers with visuals and provide an easier-to-read data. 
