@@ -135,7 +135,7 @@ print("These are the columns that have how many NaN values")
 print(No_value[No_value>0])
 ```
 ### Output
-> ![image](https://github.com/user-attachments/assets/ec7f56a2-79bf-4839-964f-958a91bdf594)
+![image](https://github.com/user-attachments/assets/ec7f56a2-79bf-4839-964f-958a91bdf594)
 
 > The .isnull() function is a boolean function that returns true when the data has no value. 
 * This code checks each columns how many NaN values they have. It can be seen that there is 1 in streams, 79  in in_deezer_playlists, 50 in in_shazam_charts and 95 in key
