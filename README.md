@@ -51,9 +51,14 @@ In this section, it will provide answers with in-depth explanations for our guid
 
 #### Accessing the Data
 
-Before we start with answering our data, we must first access our files.
+Before we start with answering our data, we must first access our files and import the necessary libraries.
 
 ```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 df = pd.read_csv("spotify-2023.csv",encoding = 'latin-1')
 
 ```
@@ -92,7 +97,7 @@ datas
 ### Cleaning of data
 * To answer next guide questions, the coder cleaned his data to avoid problems in the data frame and avoid future issues whilst answering the remaining questions.
 
-##### Converting the into numerical data
+#### Converting the into numerical data
 ```
 df['streams'] = pd.to_numeric(df['streams'], errors='coerce') 
 df['in_deezer_playlists'] = pd.to_numeric(df['in_deezer_playlists'], errors='coerce')
@@ -101,7 +106,7 @@ df['in_deezer_playlists'] = pd.to_numeric(df['in_deezer_playlists'], errors='coe
 
 * this code converts the streams and in_deezer_playlists into a numeric data type.
 
-##### Finding Missing Datas
+#### Finding Missing Datas
 
 ```
 No_value = df.isnull().sum() # to see which rows has how many missing values
@@ -114,7 +119,7 @@ print(No_value[No_value>0])
 > The .isnull() function is a boolean function that returns true when the data has no value. 
 * This code checks each columns how many NaN values they have. It can be seen that there is 1 in streams, 79  in in_deezer_playlists, 50 in in_shazam_charts and 95 in key
 
-##### Finding Duplicated Datas
+#### Finding Duplicated Datas
 
 ```
 duplicate_value = df[df.duplicated(subset=['artist(s)_name','track_name'])] 
@@ -135,7 +140,56 @@ final_df = df_NaNValue.drop_duplicates(subset = ['track_name','artist(s)_name'])
 sorted_final_df = final_df.sort_values(by = 'streams', ascending=False).reset_index(drop = True) # this also sorts the values in a descending order so that the highest streams is first
 final_df
 ```
+> the [.dropna()](https://stackoverflow.com/questions/44548721/remove-row-with-null-value-from-pandas-data-frame) function removes the NaN values in the dataframe
 
+> the [.drop_duplicates()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html) function removes the duplicates in the data frame
+
+> the [.sort_values()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html) function sorts the values either in an ascending or descending order
+ * in this block, it remove the null values in the track_name, in_shazam_charts, key, and streams. Furthermore, it also removed the duplicates in the data frame so that it can achieve a clean data frame which will be used for the questions to come. 
+
+
+## Basic Descriptive Statistics
+### What are the mean, median, and standard deviation of the streams column?
+```
+average = final_df['streams'].mean()
+median = final_df['streams'].median()
+std = final_df['streams'].std()
+
+print("The mean is: ", average)
+print("The median is: ", median)
+print("The standard deviation is: ", std)
+```
+
+* in this code block, we calculate for the mean, median and the standard deviation of the streams in the clean dataframe. our mean, median and standard deviation are 468922407.2521525, 263453310.0, and 523981505.32150424, respectively.
+
+### What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?
+```
+# Histogram for artist_count
+plt.figure(figsize=(10, 6))
+sns.displot(final_df, x = 'artist_count', kde = True, discrete = True,aspect = 2)
+plt.suptitle("Distribution of Artist Count")
+plt.xlabel("Artist count")
+plt.ylabel("Count")
+plt.show()
+
+#histogram for released_year
+years = final_df[final_df['released_year'] >= 2000]['released_year']
+plt.figure(figsize=(10, 6))
+sns.displot(final_df, x = years, kde = True, discrete = True, aspect = 2)
+plt.title('Distribution of Released Years')
+plt.xlabel("Released years")
+plt.ylabel("Count")
+plt.grid()
+plt.show()
+```
+> the [sns.displot()](https://seaborn.pydata.org/generated/seaborn.displot.html) allows us to create a histogram graph
+![image](https://github.com/user-attachments/assets/6e530908-df26-4d80-9258-73eb45d5c713)
+
+![image](https://github.com/user-attachments/assets/b86b2088-e247-4a3d-860b-03fe756e5e85)
+
+
+* To know the distribution of the released_year and artist_count, the coder utilized a displot or a histogram. It can
+  
 ## Update Log
 In this section, the coder provided updates about the coding process and versions of the ReadMe file to provide transparency to the readers of the Repository
 
@@ -167,5 +221,8 @@ In this section, the coder provided updates about the coding process and version
 2. https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
 3. https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html
 4. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
+5. https://stackoverflow.com/questions/44548721/remove-row-with-null-value-from-pandas-data-frame
+6. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html
+7. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
 
 
