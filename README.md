@@ -21,33 +21,38 @@
 # Guide Questions 
 In this repository, we will be answering the following questions : 
 
-### Overview of Dataset
-* How many rows and columns does the dataset contain?
-* What are the data types of each column? Are there any missing values?
+### 1. Overview of Dataset
+1.1 How many rows and columns does the dataset contain?
 
-### Basic Descriptive Statistics
-* What are the mean, median, and standard deviation of the streams column?
-* What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?
+1.2 What are the data types of each column? Are there any missing values?
 
-### Top Performers
-* Which track has the highest number of streams? Display the top 5 most streamed tracks.
-* Who are the top 5 most frequent artists based on the number of tracks in the dataset?
+### 2. Basic Descriptive Statistics
+2.1 What are the mean, median, and standard deviation of the streams column?
 
-### Temporal Trends
-* Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
-* Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?
+2.2 What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?
 
-### Genre and Music Characteristics
-* Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?
-* Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?
+### 3. Top Performers
+3.1 Which track has the highest number of streams? Display the top 5 most streamed tracks.
+3.2 Who are the top 5 most frequent artists based on the number of tracks in the dataset?
 
-###  Platform Popularity
-* How do the numbers of tracks in spotify_playlists, spotify_charts, and apple_playlists compare? Which platform seems to favor the most popular tracks?
+### 4. Temporal Trends
+4.1 Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
+4.2 Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?
 
-###  Advanced Analysis
-* Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?
-* Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.
+### 5. Genre and Music Characteristics
+5.1 Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?
+5.2 Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?
+
+###  6. Platform Popularity
+6.1 How do the numbers of tracks in spotify_playlists, spotify_charts, and apple_playlists compare? Which platform seems to favor the most popular tracks?
+
+###  7. Advanced Analysis
+**7.1** Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?
+
+7.2 Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.
+
 ---
+
 ---
 # Results / Answers
 In this section, it will provide answers with in-depth explanations for our guide questions to further explain the observations in the problems. 
@@ -65,23 +70,23 @@ import seaborn as sns
 df = pd.read_csv("spotify-2023.csv",encoding = 'latin-1')
 
 ```
-### OUTPUT : 
----
+## Output   
+
 ![image](https://github.com/user-attachments/assets/d33b8cf4-cb6b-45d2-884b-2203b7735443)
 
-You will encounter an error upon first loading the data, in my case it was :
+* You will encounter an error upon first loading the data, in my case it was :
 **'utf-8' codec can't decode bytes in position 7250-7251: invalid continuation byte'** . [It is a common error that occurs when trying to read a file with Pandas that cntains non-UTF-8 characters](https://saturncloud.io/blog/how-to-fix-the-pandas-unicodedecodeerror-utf8-codec-cant-decode-bytes-in-position-01-invalid-continuation-byte-error/#:~:text=continuation%20byte%20error%3F-,The%20UnicodeDecodeError%3A%20'utf%2D8'%20codec%20can't,%2DUTF%2D8%20encoded%20characters.). To eliminate the problem, we specify an encoding format, in which case I used Latin-1. Now the table can be seen without problem. 
 
 ---
-## Overview of Dataset
-### How many rows and columns does the dataset contain?
+# 1.) Overview of Dataset
+## 1.1.)How many rows and columns does the dataset contain?
 
 ```
 size = df.shape
 print("the size of the data is: ", size)
 ```
 
-#### Output
+## Output   
 ![image](https://github.com/user-attachments/assets/ce04d33e-970e-4120-873a-02783a156d4b)
 
 * The command .shape provides us with the size or the shape of the data frame in which it results to our data frame being 953 rows and 24 columns.
@@ -89,7 +94,7 @@ print("the size of the data is: ", size)
 
 ### What are the data types of each column? Are there any missing values?
 
-First, we will determine what are the datatypes of each column.
+First, we will determine what are the data types of each column.
 
 ## Determining the data types
 
@@ -98,15 +103,18 @@ datas = df.dtypes
 print("The Data types of each columns are: " )
 datas
 ```
-#### Output
+## Output 
+
 ![image](https://github.com/user-attachments/assets/4dd4ffec-b4a9-4dc3-8af9-5c19a409c329)
 
 * It can be observed that some data types in the data frame are not what they should be. Example, streams, in_shazam_charts., and in_deezer_playlists are 'objects'. Compared to their related data, these should be in int as these could cause problems in our cleaning of data.
   
 ---
 
+
 ---
-## Cleaning of data (Additional Task)
+## Cleaning of Data Set (Additional Task)
+
 * To answer next guide questions, the coder cleaned his data to avoid problems in the data frame and avoid future issues whilst answering the remaining questions.
 
 #### Converting the into numerical data
@@ -134,7 +142,7 @@ No_value = df.isnull().sum() # to see which rows has how many missing values
 print("These are the columns that have how many NaN values")
 print(No_value[No_value>0])
 ```
-### Output
+## OUTPUT 
 ![image](https://github.com/user-attachments/assets/ec7f56a2-79bf-4839-964f-958a91bdf594)
 
 > The .isnull() function is a boolean function that returns true when the data has no value. 
@@ -205,8 +213,10 @@ plt.grid() #adding a grid to the plot
 plt.show()
 ```
 > the [sns.displot()](https://seaborn.pydata.org/generated/seaborn.displot.html) allows us to create a histogram graph
-* To know the distribution of the released_year and artist_count, the coder utilized a displot or a histogram. 
-### Output
+* To know the distribution of the released_year and artist_count, the coder utilized a displot or a histogram.
+  
+## OUTPUT
+
 ![image](https://github.com/user-attachments/assets/6e530908-df26-4d80-9258-73eb45d5c713)
 
 ![image](https://github.com/user-attachments/assets/b86b2088-e247-4a3d-860b-03fe756e5e85)
@@ -246,6 +256,7 @@ higheststreams.head() #Displays the first 5 indexes
 ```
 > the function [.rest_index()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html) resets the index of the data frame
 
+## OUTPUT
 ![image](https://github.com/user-attachments/assets/0ba5563b-9667-4254-b600-b29ce3c3f272)
 
 * It can be seen that Ed Sheeran's song "Shape of You" has the highest streams followed by Sunflower by Post Malone, Swae Lee, One Dance by Drake, WizKid, Kyla	, Stay by  Justin Bieber, The Kid Laroi, and Believer by Imagine Dragons.
@@ -261,6 +272,8 @@ topartists.head()
 > The function [.explode()](https://www.w3schools.com/php/func_string_explode.asp#:~:text=The%20explode()%20function%20breaks,cannot%20be%20an%20empty%20string.) converts the string into an array
 
 > The function [.value_counts()](https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html) counts the unique values in the array.
+
+## OUTPUT
 
 ![image](https://github.com/user-attachments/assets/547ce664-82e5-42ef-bee9-d148fdaed4ed)
 
@@ -295,7 +308,7 @@ plt.show()
 > The [DataFrame.groupby()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html) function groups the dataframe into a series of columns.
 
 
-
+## OUTPUT
 ![image](https://github.com/user-attachments/assets/b45f4d44-27c2-4a1a-bc77-43c5a9b8ad45)
 
 ![image](https://github.com/user-attachments/assets/6047f002-ab02-4441-9d45-ba9ab1267000)
