@@ -22,34 +22,37 @@
 In this repository, we will be answering the following questions : 
 
 ### 1. Overview of Dataset
-1.1 How many rows and columns does the dataset contain?
+How many rows and columns does the dataset contain?
 
-1.2 What are the data types of each column? Are there any missing values?
+What are the data types of each column? Are there any missing values?
 
 ### 2. Basic Descriptive Statistics
-2.1 What are the mean, median, and standard deviation of the streams column?
+ What are the mean, median, and standard deviation of the streams column?
 
-2.2 What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?
+What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?
 
 ### 3. Top Performers
-3.1 Which track has the highest number of streams? Display the top 5 most streamed tracks.
-3.2 Who are the top 5 most frequent artists based on the number of tracks in the dataset?
+Which track has the highest number of streams? Display the top 5 most streamed tracks.
+
+Who are the top 5 most frequent artists based on the number of tracks in the dataset?
 
 ### 4. Temporal Trends
-4.1 Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
-4.2 Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?
+Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
+
+Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?
 
 ### 5. Genre and Music Characteristics
-5.1 Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?
-5.2 Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?
+Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?
+
+Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?
 
 ###  6. Platform Popularity
-6.1 How do the numbers of tracks in spotify_playlists, spotify_charts, and apple_playlists compare? Which platform seems to favor the most popular tracks?
+How do the numbers of tracks in spotify_playlists, spotify_charts, and apple_playlists compare? Which platform seems to favor the most popular tracks?
 
 ###  7. Advanced Analysis
-7.1 Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?
+Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?
 
-7.2 Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.
+Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.
 
 ---
 
@@ -70,6 +73,12 @@ import seaborn as sns
 df = pd.read_csv("spotify-2023.csv",encoding = 'latin-1')
 
 ```
+> The Pandas library will be used for creating and manipulating data frames
+
+> The Numpy library will be used for numerical functions
+
+> matplotlib and seaborn libraries will be used for creating charts and graphs for visualization
+
 ## Output   
 
 ![image](https://github.com/user-attachments/assets/d33b8cf4-cb6b-45d2-884b-2203b7735443)
