@@ -75,9 +75,9 @@ print("the size of the data is: ", size)
 
 * The command .shape provides us with the size or the shape of the data frame in which it results to our data frame being 953 rows and 24 columns.
 
-#### What are the data types of each column? Are there any missing values?
+### What are the data types of each column? Are there any missing values?
 
-Firstly, we will determine what are the datatypes of each column.
+First, we will determine what are the datatypes of each column.
 
 ```
 datas = df.dtypes
@@ -87,8 +87,54 @@ datas
 
 ![image](https://github.com/user-attachments/assets/4dd4ffec-b4a9-4dc3-8af9-5c19a409c329)
 
-* It can be observed that some data types in the data frame are not what they should be. Example, streams, in_deezer_playlists, and  in_shazam_charts are 'objects. Compared to their related data, these should be in int as these could cause problems in our cleaning of data. 
+* It can be observed that some data types in the data frame are not what they should be. Example, streams and in_deezer_playlists are 'objects'. Compared to their related data, these should be in int as these could cause problems in our cleaning of data.
 
+### Cleaning of data
+* To answer next guide questions, the coder cleaned his data to avoid problems in the data frame and avoid future issues whilst answering the remaining questions.
+
+##### Converting the into numerical data
+```
+df['streams'] = pd.to_numeric(df['streams'], errors='coerce') 
+df['in_deezer_playlists'] = pd.to_numeric(df['in_deezer_playlists'], errors='coerce')
+```
+> To convert a Dataframe column into an integer, we use the code [` pd.to_numeric `](https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html)
+
+* this code converts the streams and in_deezer_playlists into a numeric data type.
+
+##### Finding Missing Datas
+
+```
+No_value = df.isnull().sum() # to see which rows has how many missing values
+print("These are the columns that have how many NaN values")
+print(No_value[No_value>0])
+```
+
+![image](https://github.com/user-attachments/assets/ec7f56a2-79bf-4839-964f-958a91bdf594)
+
+> The .isnull() function is a boolean function that returns true when the data has no value. 
+* This code checks each columns how many NaN values they have. It can be seen that there is 1 in streams, 79  in in_deezer_playlists, 50 in in_shazam_charts and 95 in key
+
+##### Finding Duplicated Datas
+
+```
+duplicate_value = df[df.duplicated(subset=['artist(s)_name','track_name'])] 
+print("These are the rows that are duplicated")
+duplicate_value 
+```
+![image](https://github.com/user-attachments/assets/539a12e4-f05e-47e9-8fdb-7752ccfa704c)
+> the [.duplicated()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html) function returns the duplicated rows
+* This code checks the columns of artist(s)_name and track_name to see if there are any duplicated datas. It can be seen that the artists  ThxSoMch, The Weeknd, Lizzo, and Rosa Linn are the artists who duplicated.
+
+##### Removing the Duplicated and missing datas
+
+```
+df_NaNValue = df.dropna(subset = ['track_name','in_shazam_charts','key','streams'])  # source : https://stackoverflow.com/questions/44548721/remove-row-with-null-value-from-pandas-data-frame
+# this code removes the rows that have NaN values
+# Now lets remove duplicates, if there are any.
+final_df = df_NaNValue.drop_duplicates(subset = ['track_name','artist(s)_name']) # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html
+sorted_final_df = final_df.sort_values(by = 'streams', ascending=False).reset_index(drop = True) # this also sorts the values in a descending order so that the highest streams is first
+final_df
+```
 
 ## Update Log
 In this section, the coder provided updates about the coding process and versions of the ReadMe file to provide transparency to the readers of the Repository
@@ -119,7 +165,7 @@ In this section, the coder provided updates about the coding process and version
 ## References
 1. https://saturncloud.io/blog/how-to-fix-the-pandas-unicodedecodeerror-utf8-codec-cant-decode-bytes-in-position-01-invalid-continuation-byte-error/#:~:text=continuation%20byte%20error%3F-,The%20UnicodeDecodeError%3A%20'utf%2D8'%20codec%20can't,%2DUTF%2D8%20encoded%20characters.
 2. https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
-3. https://www.geeksforgeeks.org/convert-a-dataframe-column-to-integer-in-pandas/
+3. https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html
 4. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
 
 
