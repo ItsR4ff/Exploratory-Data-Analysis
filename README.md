@@ -2,54 +2,57 @@
 --- 
 
 ## Table Of Contents
- ### ●  [Introduction](#Introduction)
- ### ●  [File Utilized](#File-Utilized)
- ### ●  [Guide Questions](#Guide-Questions)
- ### ●  [Results / Answers](#Results--Answers)
- ### ●  [References](#References)
 
-### Introduction
+ ### ●   [Introduction](#Introduction)
+ ### ●   [File Utilized](#File-Utilized)
+ ### ●   [Guide Questions](#Guide-Questions)
+ ### ●   [Results / Answers](#Results--Answers)
+ ### ●   [References](#References)
+
+## Introduction
 * In this repository, we will be utilizing the Spotify-2023 data file to further deepen the understanding and enhance the programmer's skills on their python coding whilst utilizing various libraries. These libraries include Pandas and Matplotlib to provide the readers with visuals and provide an easier-to-read data. 
 
-### File Utilized
+## File Utilized
 * The file utilized in this repository is the
 
-[spotify-2023.csv](https://github.com/user-attachments/files/17621217/spotify-2023.csv)
+> [spotify-2023.csv](https://github.com/user-attachments/files/17621217/spotify-2023.csv)
 
-
-### Guide Questions
+---
+# Guide Questions 
 In this repository, we will be answering the following questions : 
 
-#### Overview of Dataset
+### Overview of Dataset
 * How many rows and columns does the dataset contain?
 * What are the data types of each column? Are there any missing values?
 
-#### Basic Descriptive Statistics
+### Basic Descriptive Statistics
 * What are the mean, median, and standard deviation of the streams column?
 * What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?
 
-#### Top Performers
+### Top Performers
 * Which track has the highest number of streams? Display the top 5 most streamed tracks.
 * Who are the top 5 most frequent artists based on the number of tracks in the dataset?
 
-#### Temporal Trends
+### Temporal Trends
 * Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
 * Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?
 
-#### Genre and Music Characteristics
+### Genre and Music Characteristics
 * Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?
 * Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?
 
-####  Platform Popularity
+###  Platform Popularity
 * How do the numbers of tracks in spotify_playlists, spotify_charts, and apple_playlists compare? Which platform seems to favor the most popular tracks?
-####  Advanced Analysis
+
+###  Advanced Analysis
 * Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?
 * Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.
-
-### Results / Answers
+---
+---
+# Results / Answers
 In this section, it will provide answers with in-depth explanations for our guide questions to further explain the observations in the problems. 
 
-#### Accessing the Data
+## Accessing the Data
 
 Before we start with answering our data, we must first access our files and import the necessary libraries.
 
@@ -62,59 +65,77 @@ import seaborn as sns
 df = pd.read_csv("spotify-2023.csv",encoding = 'latin-1')
 
 ```
+### OUTPUT : 
+---
 ![image](https://github.com/user-attachments/assets/d33b8cf4-cb6b-45d2-884b-2203b7735443)
- 
+
 You will encounter an error upon first loading the data, in my case it was :
 **'utf-8' codec can't decode bytes in position 7250-7251: invalid continuation byte'** . [It is a common error that occurs when trying to read a file with Pandas that cntains non-UTF-8 characters](https://saturncloud.io/blog/how-to-fix-the-pandas-unicodedecodeerror-utf8-codec-cant-decode-bytes-in-position-01-invalid-continuation-byte-error/#:~:text=continuation%20byte%20error%3F-,The%20UnicodeDecodeError%3A%20'utf%2D8'%20codec%20can't,%2DUTF%2D8%20encoded%20characters.). To eliminate the problem, we specify an encoding format, in which case I used Latin-1. Now the table can be seen without problem. 
 
-
-#### Overview of Dataset
-#### How many rows and columns does the dataset contain?
+---
+## Overview of Dataset
+### How many rows and columns does the dataset contain?
 
 ```
 size = df.shape
 print("the size of the data is: ", size)
 ```
 
+#### Output
 ![image](https://github.com/user-attachments/assets/ce04d33e-970e-4120-873a-02783a156d4b)
 
 * The command .shape provides us with the size or the shape of the data frame in which it results to our data frame being 953 rows and 24 columns.
+---
 
 ### What are the data types of each column? Are there any missing values?
 
 First, we will determine what are the datatypes of each column.
+
+## Determining the data types
 
 ```
 datas = df.dtypes
 print("The Data types of each columns are: " )
 datas
 ```
-
+#### Output
 ![image](https://github.com/user-attachments/assets/4dd4ffec-b4a9-4dc3-8af9-5c19a409c329)
 
-* It can be observed that some data types in the data frame are not what they should be. Example, streams and in_deezer_playlists are 'objects'. Compared to their related data, these should be in int as these could cause problems in our cleaning of data.
+* It can be observed that some data types in the data frame are not what they should be. Example, streams, in_shazam_charts., and in_deezer_playlists are 'objects'. Compared to their related data, these should be in int as these could cause problems in our cleaning of data.
+  
+---
 
-### Cleaning of data
+---
+## Cleaning of data (Additional Task)
 * To answer next guide questions, the coder cleaned his data to avoid problems in the data frame and avoid future issues whilst answering the remaining questions.
 
 #### Converting the into numerical data
 ```
-df['streams'] = pd.to_numeric(df['streams'], errors='coerce') 
-df['in_deezer_playlists'] = pd.to_numeric(df['in_deezer_playlists'], errors='coerce')
+df['streams'] = pd.to_numeric(df['streams'], errors='coerce') #converting streams into int
+df['in_deezer_playlists'] = pd.to_numeric(df['in_deezer_playlists'], errors='coerce') #converting in_deezer_playlists
+df['in_shazam_charts'] = df['in_shazam_charts'].astype(str).str.replace(',', '').astype(float) #converting in_shazam_charts to float
 ```
+
 > To convert a Dataframe column into an integer, we use the code [` pd.to_numeric `](https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html)
 
-* this code converts the streams and in_deezer_playlists into a numeric data type.
+> the [.astype()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.astype.html) function converts the data frame into desired data type.
 
-#### Finding Missing Datas
+> the [str.replace()](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.replace.html) replaces the string into another character or whitespace the coder wants
 
+* this codeblock converts the streams, and in_shazam_charts and in_deezer_playlists into a numeric data type meaning there should't be anymore problem in answering the remaining questions
+
+---
+
+###  Are there any missing values?
+
+#### Finding the total number of missing values
 ```
 No_value = df.isnull().sum() # to see which rows has how many missing values
 print("These are the columns that have how many NaN values")
 print(No_value[No_value>0])
 ```
-
-![image](https://github.com/user-attachments/assets/ec7f56a2-79bf-4839-964f-958a91bdf594)
+### Output
+> ![image](https://github.com/user-attachments/assets/ec7f56a2-79bf-4839-964f-958a91bdf594)
 
 > The .isnull() function is a boolean function that returns true when the data has no value. 
 * This code checks each columns how many NaN values they have. It can be seen that there is 1 in streams, 79  in in_deezer_playlists, 50 in in_shazam_charts and 95 in key
@@ -184,12 +205,12 @@ plt.grid() #adding a grid to the plot
 plt.show()
 ```
 > the [sns.displot()](https://seaborn.pydata.org/generated/seaborn.displot.html) allows us to create a histogram graph
-
+* To know the distribution of the released_year and artist_count, the coder utilized a displot or a histogram. 
+### Output
 ![image](https://github.com/user-attachments/assets/6e530908-df26-4d80-9258-73eb45d5c713)
 
 ![image](https://github.com/user-attachments/assets/b86b2088-e247-4a3d-860b-03fe756e5e85)
 
-* To know the distribution of the released_year and artist_count, the coder utilized a displot or a histogram. It can
 
 
 ```
@@ -212,9 +233,78 @@ print("Number of outliers in released year is: ", yearoutlier) #outputs the numb
 ![image](https://github.com/user-attachments/assets/bcd34748-819a-4eff-a5ed-3aafc128f267)
 
 
+* The number of outliers in artist_count and released_year are 24 and 180 respectively. As seen in the histogram,  there are far greater counts in the released_year resulting from 2021 to 2023 which means there were more songs released in that duration compared to the previous years. In the artist count, it reveals how many artists produced one song. it can be seen in the histogram that the count is greater when only one artist produces a song. This could mean that some of outliers are located when the song produced is created by only one artist
 
 
-  
+## Top Performers
+
+### Which track has the highest number of streams? Display the top 5 most streamed tracks.
+
+```
+higheststreams = final_df.sort_values(by = 'streams', ascending=False).reset_index(drop = True) #sorts the values by descending and resets the indexes 
+higheststreams.head() #Displays the first 5 indexes
+```
+> the function [.rest_index()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html) resets the index of the data frame
+
+![image](https://github.com/user-attachments/assets/0ba5563b-9667-4254-b600-b29ce3c3f272)
+
+* It can be seen that Ed Sheeran's song "Shape of You" has the highest streams followed by Sunflower by Post Malone, Swae Lee, One Dance by Drake, WizKid, Kyla	, Stay by  Justin Bieber, The Kid Laroi, and Believer by Imagine Dragons.
+
+### Who are the top 5 most frequent artists based on the number of tracks in the dataset?
+```
+artist_split = final_df['artist(s)_name'].str.split(', ') # since theyre separated by a comma
+artist_unique = artist_split.explode() #turns the list into an array
+topartists = artist_unique.value_counts() # counts how many times the artist is seen
+topartists.head()
+```
+
+> The function [.explode()](https://www.w3schools.com/php/func_string_explode.asp#:~:text=The%20explode()%20function%20breaks,cannot%20be%20an%20empty%20string.) converts the string into an array
+
+> The function [.value_counts()](https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html) counts the unique values in the array.
+
+![image](https://github.com/user-attachments/assets/547ce664-82e5-42ef-bee9-d148fdaed4ed)
+
+
+* As seen in the results, the artist that frequently appears the most is Bad Bunny followed by Tayor Swift, The Weeknd, Kendtrick Lamar, and Feid.
+
+
+## Temporal Trends
+Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
+
+```
+tracksperyear = final_df.groupby('released_year').size().reset_index(name = 'track_count')
+
+plt.figure(figsize=(10, 6))
+sns.lineplot(data = tracksperyear, x = 'released_year', y = 'track_count')
+plt.grid()
+plt.xlabel("Year Released")
+plt.ylabel("Tracks released")
+plt.title("Tracks released per year")
+plt.show()
+
+trackspermonth = final_df.groupby('released_month').size().reset_index(name = 'track_count', )
+plt.figure(figsize=(10, 6))
+sns.barplot(data = trackspermonth,x = 'released_month',y = 'track_count',width = .8,color = 'green')
+plt.grid()
+plt.title("tracks released per month")
+plt.xlabel("Month Released")
+plt.ylabel("Number of tracks")
+plt.show()
+```
+
+> The [DataFrame.groupby()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html) function groups the dataframe into a series of columns.
+
+
+
+![image](https://github.com/user-attachments/assets/b45f4d44-27c2-4a1a-bc77-43c5a9b8ad45)
+
+![image](https://github.com/user-attachments/assets/6047f002-ab02-4441-9d45-ba9ab1267000)
+
+
+* It can be seen in the graph that in the year 2020 and above has more tracks released. It can be seen between the year 2021 and 2022 has the highest number of tracks released. 
+
+---
+
 ## Update Log
 In this section, the coder provided updates about the coding process and versions of the ReadMe file to provide transparency to the readers of the Repository
 
@@ -240,15 +330,23 @@ In this section, the coder provided updates about the coding process and version
 ####  Update 1.2 (11/5/2024)
 * Completion of coding, can still be changed if needed
 
+####  Version 1.3 (11/5/2024)
+* Addition to the readme file
+
 
 ## References
 1. https://saturncloud.io/blog/how-to-fix-the-pandas-unicodedecodeerror-utf8-codec-cant-decode-bytes-in-position-01-invalid-continuation-byte-error/#:~:text=continuation%20byte%20error%3F-,The%20UnicodeDecodeError%3A%20'utf%2D8'%20codec%20can't,%2DUTF%2D8%20encoded%20characters.
 2. https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
 3. https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html
-4. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
-5. https://stackoverflow.com/questions/44548721/remove-row-with-null-value-from-pandas-data-frame
-6. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html
-7. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
-8. https://www.analyticsvidhya.com/blog/2022/09/dealing-with-outliers-using-the-iqr-method/
+4. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.astype.html
+5. https://pandas.pydata.org/docs/reference/api/pandas.Series.str.replace.html
+6. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
+7. https://stackoverflow.com/questions/44548721/remove-row-with-null-value-from-pandas-data-frame
+8. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html
+9. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
+10. https://www.analyticsvidhya.com/blog/2022/09/dealing-with-outliers-using-the-iqr-method/
+11. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html
+12. https://www.w3schools.com/php/func_string_explode.asp#:~:text=The%20explode()%20function%20breaks,cannot%20be%20an%20empty%20string.
+13. https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html
 
 
