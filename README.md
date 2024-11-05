@@ -145,6 +145,7 @@ final_df
 > the [.drop_duplicates()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html) function removes the duplicates in the data frame
 
 > the [.sort_values()](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html) function sorts the values either in an ascending or descending order
+
  * in this block, it remove the null values in the track_name, in_shazam_charts, key, and streams. Furthermore, it also removed the duplicates in the data frame so that it can achieve a clean data frame which will be used for the questions to come. 
 
 
@@ -165,30 +166,54 @@ print("The standard deviation is: ", std)
 ### What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?
 ```
 # Histogram for artist_count
-plt.figure(figsize=(10, 6))
-sns.displot(final_df, x = 'artist_count', kde = True, discrete = True,aspect = 2)
-plt.suptitle("Distribution of Artist Count")
-plt.xlabel("Artist count")
-plt.ylabel("Count")
-plt.show()
+plt.figure(figsize=(10, 6)) #set graph size
+sns.displot(final_df, x = 'artist_count', kde = True, discrete = True,aspect = 2) #inputting data for the histogram plot for released_years
+plt.title("Distribution of Artist Count")  #setting a title
+plt.xlabel("Artist count") #setting x label
+plt.ylabel("Count") #setting y label
+plt.show() #adding a grid to the plot
 
-#histogram for released_year
-years = final_df[final_df['released_year'] >= 2000]['released_year']
-plt.figure(figsize=(10, 6))
-sns.displot(final_df, x = years, kde = True, discrete = True, aspect = 2)
-plt.title('Distribution of Released Years')
-plt.xlabel("Released years")
-plt.ylabel("Count")
-plt.grid()
+# histogram for released_year
+years = final_df[final_df['released_year'] >= 2000]['released_year'] #setting a limit of released_year only greater than 2000
+plt.figure(figsize=(10, 6)) # setting graph size
+sns.displot(final_df, x = years, kde = True, discrete = True, aspect = 2) #inputting data for the histogram plot for released_years
+plt.title('Distribution of Released Years') #setting a title
+plt.xlabel("Released years") #setting x label
+plt.ylabel("Count") #setting y label
+plt.grid() #adding a grid to the plot
 plt.show()
 ```
 > the [sns.displot()](https://seaborn.pydata.org/generated/seaborn.displot.html) allows us to create a histogram graph
+
 ![image](https://github.com/user-attachments/assets/6e530908-df26-4d80-9258-73eb45d5c713)
 
 ![image](https://github.com/user-attachments/assets/b86b2088-e247-4a3d-860b-03fe756e5e85)
 
-
 * To know the distribution of the released_year and artist_count, the coder utilized a displot or a histogram. It can
+
+
+```
+def outlierfinder(final_df): #setting a user defined function to find outliers
+    q1 = final_df.quantile(0.25) #setting 1st quartile
+    q3 = final_df.quantile(0.75) #setting third quartile
+    IQR = q3-q1 #formula for IQR
+    outliers = final_df[((final_df<(q1-1.5*IQR)) | (final_df>(q3+1.5*IQR)))] #formula to find outliers in the data frame
+    return outliers # returns the outlier
+
+artistcount_outlier =  outlierfinder(final_df['artist_count']).shape[0] #finding outlier in the artist_count
+print("Number of outliers in artist count is: ", artistcount_outlier) #outputs the number of outliers
+
+yearoutlier = outlierfinder(final_df['released_year']).shape[0] #finding outlier in released_year
+print("Number of outliers in released year is: ", yearoutlier) #outputs the number of outliers
+
+```
+> There are multiple ways to find outliers in a data, but in this codeblock, the coder utilized the [IQR method](https://www.analyticsvidhya.com/blog/2022/09/dealing-with-outliers-using-the-iqr-method/)
+
+![image](https://github.com/user-attachments/assets/bcd34748-819a-4eff-a5ed-3aafc128f267)
+
+
+
+
   
 ## Update Log
 In this section, the coder provided updates about the coding process and versions of the ReadMe file to provide transparency to the readers of the Repository
@@ -224,5 +249,6 @@ In this section, the coder provided updates about the coding process and version
 5. https://stackoverflow.com/questions/44548721/remove-row-with-null-value-from-pandas-data-frame
 6. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html
 7. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
+8. https://www.analyticsvidhya.com/blog/2022/09/dealing-with-outliers-using-the-iqr-method/
 
 
